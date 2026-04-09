@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كويز تايم</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .quiz-container { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 90%; max-width: 400px; text-align: center; }
+        button { background-color: #0088cc; color: white; border: none; padding: 12px 20px; margin: 10px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; }
+        button:hover { background-color: #006699; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2 id="question">جاري التحميل...</h2>
+        <div id="options"></div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // تمديد الشاشة بالكامل
+
+        const questionData = {
+            title: "ما هو العنصر الكيميائي الذي رمزه H؟",
+            options: ["هيليوم", "هيدروجين", "هيدريد"],
+            correct: 1
+        };
+
+        function loadQuestion() {
+            document.getElementById('question').innerText = questionData.title;
+            const optionsDiv = document.getElementById('options');
+            questionData.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(index);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(index) {
+            if(index === questionData.correct) {
+                alert("بطل! إجابة صحيحة ✅");
+            } else {
+                alert("خطأ! حاول مرة أخرى ❌");
+            }
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
